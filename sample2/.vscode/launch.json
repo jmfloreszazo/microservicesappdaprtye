@@ -1,0 +1,56 @@
+{
+  // Use IntelliSense to find out which attributes exist for C# debugging
+  // Use hover for the description of the existing attributes
+  // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}"
+    },
+    {
+      "name": "Launch hello",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "daprd-debug-webapi",
+      "program": "${workspaceFolder}/hello.microservice.webapi/bin/Debug/netcoreapp3.1/hello.microservice.webapi.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/hello.microservice.webapi",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://+:5001"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "postDebugTask": "daprd-down-webapi"
+    },
+    {
+      "name": "Launch hi",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "daprd-debug-webapi2",
+      "program": "${workspaceFolder}/hi.microservice.webapi/bin/Debug/netcoreapp3.1/hi.microservice.webapi.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/hi.microservice.webapi",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://+:5002"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "postDebugTask": "daprd-down-webapi2"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Hello & Hi",
+      "configurations": ["Launch hello", "Launch hi"]
+    }
+  ]
+}
